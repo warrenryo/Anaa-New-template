@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobPortal\JobPortalController;
+use App\Http\Controllers\JobPosting\JobPostingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +35,26 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function(){
     //PLACE YOUR ROUTES HERE FOR VERIFIED USER
+
+    //Company
+    Route:
+    Route::get('company/manage', [CompanyController::class, 'index']);
+    Route::post('company/manage/create-company', [CompanyController::class, 'createCompany']);
+    Route::patch('company/manage/isActive/{id}', [CompanyController::class, 'setIsActive']);
+    Route::put('company/manage/edit-company/id={id}', [CompanyController::class,'editCompany']);
+    Route::delete('company/manage/delete-company/id={id}', [CompanyController::class, 'deleteCompany']);
+
+    //Job Posting 
+    Route::get('job-posting/manage', [JobPostingController::class, 'index']);
+    Route::post('job-posting/manage/create-job', [JobPostingController::class, 'createJob']);
+    Route::put('job-posting/manage/edit-job/id={id}', [JobPostingController::class, 'editJob']);
+    Route::delete('job-posting/manage/delete-job/id={id}', [JobPostingController::class,'deleteJob']);
+    Route::delete('delete-responsibility/{id}', [JobPostingController::class, 'destroyResponsibility']);
+    Route::delete('delete-skills/{id}', [JobPostingController::class, 'destroySkills']);
+    Route::delete('delete-qualifications/{id}', [JobPostingController::class, 'destroyQualifications']);
+
+    //Job Portal
+    Route::get('job-portal', [JobPortalController::class, 'index']);
 
 
     //APPS
